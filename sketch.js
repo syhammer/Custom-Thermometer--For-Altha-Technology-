@@ -2,7 +2,7 @@ var thermometer,imageSize;
 
 function setup()
 {
-  var imageSize = createVector(300,400);
+  var imageSize = createVector(800,2000);
   createCanvas(imageSize.x,imageSize.y);
   thermometer = new Thermometer();
   CustomizeObject(thermometer);

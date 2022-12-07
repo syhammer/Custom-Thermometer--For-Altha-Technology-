@@ -23,13 +23,15 @@ class Thermometer
         light:color(220),
         dark:color(51),
       },
-      size:20,
+      size:80,
       font:'Helvetica',
     };
+    this.scaler = 1;
   }
 
   render()
   {
+    this.funding.percent = this.funding.progress/this.funding.goal;
     push();
     fill(this.bar.backgroundColor);
     noStroke();
@@ -55,7 +57,7 @@ class Thermometer
         textAlign(RIGHT,CENTER);
         textSize(this.text.size/1.75);
         textFont(this.text.font);
-        text('$'+BeautifyNumber(round(this.funding.goal*percent)),this.bar.size.outer.x/2-this.bar.size.inner.x-10,this.bar.size.outer.y/2-this.bar.size.inner.y/2+i)
+        text('$'+BeautifyNumber(round(this.funding.goal*percent)),this.bar.size.outer.x/2-this.bar.size.inner.x-10*this.scaler,this.bar.size.outer.y/2-this.bar.size.inner.y/2+i)
       }
     }
     pop();
@@ -66,11 +68,11 @@ class Thermometer
     textFont(this.text.font);
     textAlign(CENTER,CENTER);
     var w = textWidth(round(100*this.funding.percent));
-    ellipse(this.bar.size.outer.x/2,this.bar.size.outer.y/2+this.bar.size.inner.y/2-this.bar.borderRadius+w/2+10,w+20,w+20,this.bar.borderRadius*2);
+    ellipse(this.bar.size.outer.x/2,this.bar.size.outer.y/2+this.bar.size.inner.y/2-this.bar.borderRadius+w*0.8,w*1.6,w*1.6);
     fill(this.text.color.light);
-    text(round(100*this.funding.percent),this.bar.size.outer.x/2+3,this.bar.size.outer.y/2+this.bar.size.inner.y/2+this.text.size-this.bar.borderRadius+1);
+    text(round(100*this.funding.percent),this.bar.size.outer.x/2+2*this.scaler,this.bar.size.outer.y/2+this.bar.size.inner.y/2+this.text.size-this.bar.borderRadius-1*this.scaler);
     textSize(this.text.size/1.75);
-    text('%',this.bar.size.outer.x/2-w*0.5-1,this.bar.size.outer.y/2+this.bar.size.inner.y/2+this.text.size-this.bar.borderRadius+1);
+    text('%',this.bar.size.outer.x/2-w*0.5-0.1*this.scaler,this.bar.size.outer.y/2+this.bar.size.inner.y/2+this.text.size-this.bar.borderRadius-1*this.scaler);
     fill(this.text.color.dark);
     textSize(this.text.size*0.75);
     textAlign(CENTER,CENTER);
@@ -78,7 +80,7 @@ class Thermometer
     textSize(this.text.size);
     text('$'+BeautifyNumber(round(this.funding.goal)),this.bar.size.outer.x/2,this.bar.size.outer.y/2-this.bar.size.inner.y/2-this.text.size*0.75);
     textAlign(LEFT,CENTER);
-    text('- $'+BeautifyNumber(round(this.funding.progress)),this.bar.size.outer.x/2+10,this.bar.size.outer.y/2+this.bar.size.inner.y/2-this.bar.size.inner.y*this.funding.percent);
+    text('- $'+BeautifyNumber(round(this.funding.progress)),this.bar.size.outer.x/2+10*this.scaler,this.bar.size.outer.y/2+this.bar.size.inner.y/2-this.bar.size.inner.y*this.funding.percent);
     pop();
   }
 }
